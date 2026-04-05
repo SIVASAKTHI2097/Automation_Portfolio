@@ -1,0 +1,403 @@
+.skills-marquee-section {
+  padding-top: 90px;
+  padding-bottom: 130px;
+  overflow: hidden;
+}
+
+.skills-stack-header {
+  text-align: center;
+  margin-bottom: 44px;
+}
+
+.skills-stack-kicker {
+  margin: 0 0 14px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.34em;
+  color: rgba(132, 233, 255, 0.8);
+}
+
+.skills-stack-title {
+  margin: 0;
+  font-size: clamp(2.5rem, 6vw, 5.2rem);
+  line-height: 0.98;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+
+.skills-stack-title-white {
+  color: #f5fbff;
+}
+
+.skills-stack-title-red {
+  color: #ff3b3b;
+  text-shadow:
+    0 0 20px rgba(255, 59, 59, 0.12),
+    0 0 38px rgba(255, 59, 59, 0.08);
+}
+
+.skills-marquee-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  position: relative;
+}
+
+.skills-marquee-row {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 10px 0;
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 1) 8%,
+    rgba(0, 0, 0, 1) 92%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 1) 8%,
+    rgba(0, 0, 0, 1) 92%,
+    transparent 100%
+  );
+}
+
+.skills-marquee-track {
+  display: flex;
+  align-items: stretch;
+  gap: 18px;
+  width: max-content;
+  will-change: transform;
+}
+
+.row-left .skills-marquee-track {
+  animation: marqueeLeft 32s linear infinite;
+}
+
+.row-right .skills-marquee-track {
+  animation: marqueeRight 32s linear infinite;
+}
+
+.row-left:hover .skills-marquee-track {
+  animation-play-state: paused;
+}
+
+.row-right:hover .skills-marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marqueeLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-50% - 9px));
+  }
+}
+
+@keyframes marqueeRight {
+  0% {
+    transform: translateX(calc(-50% - 9px));
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.tech-skill-card {
+  --skill-color: #84e9ff;
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 260px;
+  max-width: 260px;
+  min-height: 88px;
+  padding: 14px 18px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid rgba(255, 255, 255, 0.045);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.015),
+    0 10px 24px rgba(0, 0, 0, 0.12);
+  transition:
+    transform 0.28s ease,
+    border-color 0.28s ease,
+    background 0.28s ease,
+    box-shadow 0.28s ease;
+  z-index: 1;
+}
+
+.tech-skill-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.02), transparent 28%),
+    radial-gradient(circle at 85% 80%, rgba(255, 255, 255, 0.015), transparent 24%);
+  pointer-events: none;
+}
+
+.tech-skill-card:hover {
+  transform: translateY(-6px) scale(1.035);
+  border-color: color-mix(in srgb, var(--skill-color) 32%, rgba(255, 255, 255, 0.08));
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--skill-color) 8%, transparent),
+    0 0 18px color-mix(in srgb, var(--skill-color) 10%, transparent),
+    0 14px 34px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+.tech-skill-icon {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.045);
+  transition:
+    color 0.28s ease,
+    background 0.28s ease,
+    border-color 0.28s ease,
+    box-shadow 0.28s ease,
+    transform 0.28s ease;
+}
+
+.tech-skill-card:hover .tech-skill-icon {
+  color: var(--skill-color);
+  border-color: color-mix(in srgb, var(--skill-color) 30%, rgba(255, 255, 255, 0.06));
+  background: color-mix(in srgb, var(--skill-color) 8%, rgba(255, 255, 255, 0.015));
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--skill-color) 10%, transparent),
+    0 0 18px color-mix(in srgb, var(--skill-color) 18%, transparent);
+  transform: scale(1.05);
+}
+
+.tech-skill-icon-git {
+  color: rgba(255, 255, 255, 0.28);
+}
+
+.tech-skill-card:hover .tech-skill-icon-git {
+  color: #f1502f;
+  border-color: rgba(241, 80, 47, 0.24);
+  background: rgba(241, 80, 47, 0.06);
+  box-shadow:
+    0 0 0 1px rgba(241, 80, 47, 0.08),
+    0 0 20px rgba(241, 80, 47, 0.2),
+    0 0 34px rgba(241, 80, 47, 0.08);
+}
+
+.git-svg-icon {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.tech-skill-text {
+  min-width: 0;
+  flex: 1;
+}
+
+.tech-skill-text h3 {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.2;
+  font-weight: 800;
+  color: #f5fbff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.28s ease;
+}
+
+.tech-skill-card:hover .tech-skill-text h3 {
+  color: color-mix(in srgb, var(--skill-color) 78%, white 22%);
+}
+
+.tech-skill-text p {
+  margin: 6px 0 0;
+  font-size: 0.78rem;
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: rgba(233, 242, 255, 0.48);
+  transition: color 0.28s ease;
+}
+
+.tech-skill-card:hover .tech-skill-text p {
+  color: rgba(233, 242, 255, 0.7);
+}
+
+/* RESPONSIVE */
+@media (max-width: 980px) {
+  .skills-marquee-section {
+    padding-top: 70px;
+    padding-bottom: 90px;
+  }
+
+  .skills-stack-header {
+    margin-bottom: 32px;
+  }
+
+  .skills-marquee-shell {
+    gap: 14px;
+  }
+
+  .skills-marquee-row {
+    padding: 6px 0;
+  }
+
+  .skills-marquee-track {
+    gap: 14px;
+  }
+
+.row-left .skills-marquee-track,
+.row-right .skills-marquee-track {
+  animation-duration: 28s;
+}
+
+  .tech-skill-card {
+    min-width: 220px;
+    max-width: 220px;
+    min-height: 78px;
+    padding: 12px 14px;
+    border-radius: 18px;
+    gap: 12px;
+  }
+
+  .tech-skill-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    font-size: 0.86rem;
+  }
+
+  .git-svg-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .tech-skill-text h3 {
+    font-size: 0.92rem;
+  }
+
+  .tech-skill-text p {
+    font-size: 0.72rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .skills-stack-kicker {
+    letter-spacing: 0.22em;
+  }
+
+  .skills-marquee-row {
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
+.row-left .skills-marquee-track,
+.row-right .skills-marquee-track {
+  animation-duration: 24s;
+}
+
+  .tech-skill-card {
+    min-width: 190px;
+    max-width: 190px;
+    min-height: 72px;
+    padding: 10px 12px;
+    border-radius: 16px;
+    gap: 10px;
+  }
+
+  .tech-skill-card:hover {
+    transform: translateY(-4px) scale(1.02);
+  }
+
+  .tech-skill-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    font-size: 0.76rem;
+  }
+
+  .git-svg-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .tech-skill-text h3 {
+    font-size: 0.84rem;
+  }
+
+  .tech-skill-text p {
+    margin-top: 4px;
+    font-size: 0.68rem;
+  }
+}
+
+/* ===== LOGO / TEXT ICON MODES ===== */
+.tech-skill-icon-logo {
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.tech-skill-icon-text {
+  font-size: 0.82rem;
+}
+
+.tech-logo-svg {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.tech-skill-card:hover .tech-skill-icon-logo {
+  color: var(--skill-color);
+  border-color: color-mix(in srgb, var(--skill-color) 30%, rgba(255, 255, 255, 0.06));
+  background: color-mix(in srgb, var(--skill-color) 8%, rgba(255, 255, 255, 0.015));
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--skill-color) 10%, transparent),
+    0 0 18px color-mix(in srgb, var(--skill-color) 18%, transparent);
+  transform: scale(1.05);
+}
+
+/* ===== ICON MODES ===== */
+.tech-skill-icon-logo {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.tech-skill-icon-text {
+  font-size: 0.82rem;
+}
+
+.tech-logo-svg {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.tech-skill-card:hover .tech-skill-icon-logo {
+  color: var(--skill-color);
+  border-color: color-mix(in srgb, var(--skill-color) 30%, rgba(255, 255, 255, 0.06));
+  background: color-mix(in srgb, var(--skill-color) 8%, rgba(255, 255, 255, 0.015));
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--skill-color) 10%, transparent),
+    0 0 18px color-mix(in srgb, var(--skill-color) 18%, transparent);
+  transform: scale(1.05);
+}
