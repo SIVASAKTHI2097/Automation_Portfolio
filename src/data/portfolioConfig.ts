@@ -5,7 +5,7 @@ export const portfolioConfig = {
     leetcode: "https://leetcode.com/yourusername",
     twitter: "https://x.com/sakthisivas",
     allgithubrepo: "https://github.com/SIVASAKTHI2097?tab=repositories",
-    playwrightrepo: "https://github.com/SIVASAKTHI2097/Playwright_UI_And_API",
+    playwrightrepo: "https://github.com/SIVASAKTHI2097/Playwright_UI_API_TS",
     csharpseleniumrepo:"https://github.com/SIVASAKTHI2097/C-_Selenium_UI_And_API",
     javaapirepo:"https://github.com/SIVASAKTHI2097/Java_API_ResrAssured",
   },
