@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { portfolioConfig } from "../data/portfolioConfig";
 
 const projects = [
@@ -25,8 +26,49 @@ const projects = [
 ];
 
 function ProjectsSection() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const updateActiveState = () => {
+      const rect = section.getBoundingClientRect();
+      const viewportCenter = window.innerHeight * 0.5;
+      const isActive = rect.top <= viewportCenter && rect.bottom >= viewportCenter;
+
+      if (isActive) {
+        section.classList.add("is-projects-active");
+      } else {
+        section.classList.remove("is-projects-active");
+      }
+    };
+
+    let raf = 0;
+
+    const requestUpdate = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(updateActiveState);
+    };
+
+    requestUpdate();
+
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", requestUpdate);
+      window.removeEventListener("resize", requestUpdate);
+    };
+  }, []);
+
   return (
-    <section className="section section-focus projects-showcase-section" id="projects">
+    <section
+      className="section section-focus projects-showcase-section"
+      id="projects"
+      ref={sectionRef}
+    >
       <div className="section-focus-inner">
         <div className="projects-showcase-top-pill" data-reveal="up">
           <span>Projects Showcase</span>
@@ -54,6 +96,9 @@ function ProjectsSection() {
               data-reveal={index === 1 ? "up" : index === 0 ? "left" : "right"}
               data-reveal-delay={String(index + 1)}
             >
+              <div className="showcase-project-ambient-glow" aria-hidden="true" />
+              <div className="showcase-project-shine" aria-hidden="true" />
+
               <div className="showcase-project-image">
                 <div className="showcase-project-image-overlay" />
 
