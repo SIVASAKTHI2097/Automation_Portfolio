@@ -1,4 +1,5 @@
 import { portfolioConfig } from "../data/portfolioConfig";
+
 const projects = [
   {
     title: "Playwright UI Automation Framework",
@@ -26,11 +27,11 @@ const projects = [
 function ProjectsSection() {
   return (
     <section className="section projects-showcase-section" id="projects">
-      <div className="projects-showcase-top-pill">
+      <div className="projects-showcase-top-pill" data-reveal="up">
         <span>Projects Showcase</span>
       </div>
 
-      <div className="projects-showcase-header">
+      <div className="projects-showcase-header" data-reveal="up" data-reveal-delay="1">
         <p className="projects-showcase-kicker">Portfolio</p>
 
         <h2 className="projects-showcase-title">
@@ -45,8 +46,13 @@ function ProjectsSection() {
       </div>
 
       <div className="projects-showcase-grid">
-        {projects.map((project) => (
-          <article className="showcase-project-card" key={project.title}>
+        {projects.map((project, index) => (
+          <article
+            className="showcase-project-card hover-lift"
+            key={project.title}
+            data-reveal="up"
+            data-reveal-delay={String((index % 3) + 1)}
+          >
             <div className="showcase-project-image">
               <div className="showcase-project-image-overlay" />
 
@@ -80,7 +86,7 @@ function ProjectsSection() {
         ))}
       </div>
 
-      <div className="projects-showcase-footer">
+      <div className="projects-showcase-footer" data-reveal="up" data-reveal-delay="2">
         <a
           href={portfolioConfig.social.allgithubrepo}
           target="_blank"
