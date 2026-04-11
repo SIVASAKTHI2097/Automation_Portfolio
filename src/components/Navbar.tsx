@@ -13,10 +13,6 @@ function Navbar() {
   const [hoveredSection, setHoveredSection] = useState("");
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // safer intro states
-  const [showIntro, setShowIntro] = useState(true);
-  const [introExit, setIntroExit] = useState(false);
-
   const navLinksRef = useRef<HTMLDivElement | null>(null);
   const linkRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
 
@@ -40,26 +36,28 @@ function Navbar() {
         return;
       }
 
-      const viewportTarget = window.innerHeight * 0.38;
+      const navbarOffset = window.innerWidth <= 900 ? 88 : 104;
+      const viewportProbe = navbarOffset + 80;
 
-      let closestId = "";
-      let closestDistance = Number.POSITIVE_INFINITY;
+      let currentSection = "";
+      let lastPassedSection = "";
 
       sectionIds.forEach((id) => {
         const el = document.getElementById(id);
         if (!el) return;
 
         const rect = el.getBoundingClientRect();
-        const sectionCenter = rect.top + rect.height / 2;
-        const distance = Math.abs(sectionCenter - viewportTarget);
 
-        if (distance < closestDistance) {
-          closestDistance = distance;
-          closestId = id;
+        if (rect.top <= viewportProbe) {
+          lastPassedSection = id;
+        }
+
+        if (rect.top <= viewportProbe && rect.bottom > viewportProbe) {
+          currentSection = id;
         }
       });
 
-      setActiveSection(closestId);
+      setActiveSection(currentSection || lastPassedSection || "");
     };
 
     updateNavbarState();
@@ -123,93 +121,81 @@ function Navbar() {
       const containerRect = navLinks.getBoundingClientRect();
       const targetRect = targetLink.getBoundingClientRect();
 
-      const left = targetRect.left - containerRect.left;
-      const width = targetRect.width;
-
-      underline.style.width = `${width}px`;
-      underline.style.transform = `translateX(${left}px)`;
+      underline.style.width = `${targetRect.width}px`;
+      underline.style.transform = `translateX(${targetRect.left - containerRect.left}px)`;
     };
 
     window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    return () => window.removeEventListener("resize", handleResize);
   }, [activeSection, hoveredSection]);
 
-  // intro timing (stable)
-  useEffect(() => {
-    const exitTimer = window.setTimeout(() => {
-      setIntroExit(true);
-    }, 2600);
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    targetId: string
+  ) => {
+    e.preventDefault();
 
-    const removeTimer = window.setTimeout(() => {
-      setShowIntro(false);
-    }, 3600);
+    const target = document.getElementById(targetId);
+    if (!target) return;
 
-    return () => {
-      clearTimeout(exitTimer);
-      clearTimeout(removeTimer);
-    };
-  }, []);
+    const navbarOffset = window.innerWidth <= 900 ? 88 : 104;
+    const targetTop =
+      target.getBoundingClientRect().top + window.scrollY - navbarOffset;
+
+    window.scrollTo({
+      top: Math.max(0, targetTop),
+      behavior: "smooth",
+    });
+
+    setActiveSection(targetId);
+  };
+
+  const handleBrandClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+
+    setActiveSection("");
+  };
 
   return (
-    <>
-      {showIntro && (
-        <div
-          className={`brand-intro-overlay ${introExit ? "is-exit" : ""}`}
-          aria-hidden="true"
+    <header className={`site-header ${isScrolled ? "is-scrolled" : ""}`}>
+      <nav className="navbar" aria-label="Primary">
+        <a
+          href="#hero"
+          className="brand"
+          aria-label="Go to top"
+          onClick={handleBrandClick}
         >
-          <div className="brand-intro-mark">
-            <span className="brand-brace">{`{`}</span>
-            <span className="brand-core">SS</span>
-            <span className="brand-brace">{`}`}</span>
-          </div>
+          <span className="brand-mark">SS</span>
+        </a>
+
+        <div className="nav-links" ref={navLinksRef}>
+          {navItems.map((item) => (
+            <a
+              key={item.id}
+              href={item.href}
+              ref={(el) => {
+                linkRefs.current[item.id] = el;
+              }}
+              className={`nav-link ${
+                activeSection === item.id ? "is-active" : ""
+              }`}
+              onMouseEnter={() => setHoveredSection(item.id)}
+              onMouseLeave={() => setHoveredSection("")}
+              onClick={(e) => handleNavClick(e, item.id)}
+            >
+              {item.label}
+            </a>
+          ))}
+
+          <span className="nav-underline" aria-hidden="true" />
         </div>
-      )}
-
-      <header className={`site-header ${isScrolled ? "is-scrolled" : ""}`}>
-        <nav className="navbar" data-reveal="zoom">
-          <a
-            href="#hero"
-            className={`brand ${showIntro ? "brand-hidden-until-intro" : "brand-ready"}`}
-            aria-label="Go to top"
-          >
-            <span className="brand-mark" aria-hidden="true">
-              <span className="brand-brace">{`{`}</span>
-              <span className="brand-core">SS</span>
-              <span className="brand-brace">{`}`}</span>
-            </span>
-          </a>
-
-          <div
-            className="nav-links"
-            ref={navLinksRef}
-            onMouseLeave={() => setHoveredSection("")}
-          >
-            {navItems.map((item) => {
-              const isActive = activeSection === item.id;
-
-              return (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  ref={(el) => {
-                    linkRefs.current[item.id] = el;
-                  }}
-                  className={isActive ? "is-active" : ""}
-                  onMouseEnter={() => setHoveredSection(item.id)}
-                >
-                  <span>{item.label}</span>
-                </a>
-              );
-            })}
-
-            <span className="nav-underline" aria-hidden="true" />
-          </div>
-        </nav>
-      </header>
-    </>
+      </nav>
+    </header>
   );
 }
 
