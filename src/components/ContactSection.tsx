@@ -1,9 +1,10 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 import { portfolioConfig } from "../data/portfolioConfig";
 
 function ContactSection() {
   const formRef = useRef<HTMLFormElement | null>(null);
+  const sectionRef = useRef<HTMLElement | null>(null);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -11,6 +12,41 @@ function ContactSection() {
   const [errorText, setErrorText] = useState("");
   const [successText, setSuccessText] = useState("");
   const [isSending, setIsSending] = useState(false);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const updateActiveState = () => {
+      const rect = section.getBoundingClientRect();
+      const viewportCenter = window.innerHeight * 0.5;
+      const isActive = rect.top <= viewportCenter && rect.bottom >= viewportCenter;
+
+      if (isActive) {
+        section.classList.add("is-contact-active");
+      } else {
+        section.classList.remove("is-contact-active");
+      }
+    };
+
+    let raf = 0;
+
+    const requestUpdate = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(updateActiveState);
+    };
+
+    requestUpdate();
+
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", requestUpdate);
+      window.removeEventListener("resize", requestUpdate);
+    };
+  }, []);
 
   const validateForm = () => {
     const missingFields: string[] = [];
@@ -80,7 +116,11 @@ function ContactSection() {
   };
 
   return (
-    <section className="section section-focus contact-section" id="contact">
+    <section
+      className="section section-focus contact-section"
+      id="contact"
+      ref={sectionRef}
+    >
       <div className="section-focus-inner">
         <div className="section-heading" data-reveal="up">
           <div className="projects-showcase-top-pill">
@@ -97,6 +137,7 @@ function ContactSection() {
           {/* LEFT SIDE */}
           <div className="contact-left" data-reveal="left" data-reveal-delay="1">
             <div className="contact-card-glow" />
+            <div className="contact-card-shine" aria-hidden="true" />
             <div className="contact-left-topline" />
 
             <div className="contact-left-header">
