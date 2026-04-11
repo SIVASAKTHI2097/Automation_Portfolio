@@ -58,37 +58,61 @@ function ExperienceSection() {
       if (!timeline || !progress || !dotWrap || rows.length === 0) return;
 
       const timelineRect = timeline.getBoundingClientRect();
-      const viewportTarget = window.innerHeight * 0.45;
       const isMobile = window.innerWidth <= 980;
 
-      let activeRow = rows[0];
-      let smallestDistance = Number.POSITIVE_INFINITY;
-
-      rows.forEach((row) => {
+      // Active card highlight
+      rows.forEach((row, index) => {
         const rect = row.getBoundingClientRect();
-        const center = rect.top + rect.height / 2;
-        const distance = Math.abs(center - viewportTarget);
+        const activationPoint = window.innerHeight * 0.72;
+        const isRowActive =
+          rect.top <= activationPoint && rect.bottom >= window.innerHeight * 0.18;
 
-        if (distance < smallestDistance) {
-          smallestDistance = distance;
-          activeRow = row;
+        if (isRowActive) {
+          row.classList.add("is-active");
+        } else {
+          row.classList.remove("is-active");
+        }
+
+        if (index === 0 && rect.top > activationPoint) {
+          row.classList.remove("is-active");
         }
       });
 
-      const activeRect = activeRow.getBoundingClientRect();
-      const dotY = activeRect.top - timelineRect.top + activeRect.height / 2;
+      // Stable scroll-based progress
+      const firstRowRect = rows[0].getBoundingClientRect();
+      const lastRowRect = rows[rows.length - 1].getBoundingClientRect();
+
+      const firstRowCenterAbs =
+        window.scrollY + firstRowRect.top + firstRowRect.height / 2;
+
+      const lastRowCenterAbs =
+        window.scrollY + lastRowRect.top + lastRowRect.height / 2;
+
+      // Slower / smoother bicycle feel
+      const startScroll = firstRowCenterAbs - window.innerHeight * 0.68;
+      const endScroll = lastRowCenterAbs - window.innerHeight * 0.42;
+
+      const totalRange = endScroll - startScroll;
+
+      let progressRatio = 0;
+
+      if (totalRange > 0) {
+        progressRatio = (window.scrollY - startScroll) / totalRange;
+      }
+
+      progressRatio = Math.max(0, Math.min(1, progressRatio));
 
       const minY = 18;
       const maxY = Math.max(timelineRect.height - 18, minY);
-      const safeDotY = Math.min(Math.max(dotY, minY), maxY);
+      const dotY = minY + progressRatio * (maxY - minY);
 
       if (isMobile) {
-        dotWrap.style.transform = `translateY(${safeDotY}px)`;
+        dotWrap.style.transform = `translate(-50%, ${dotY}px)`;
       } else {
-        dotWrap.style.transform = `translate(-50%, ${safeDotY}px)`;
+        dotWrap.style.transform = `translate(-50%, ${dotY}px)`;
       }
 
-      progress.style.height = `${safeDotY}px`;
+      progress.style.height = `${dotY}px`;
     };
 
     let raf = 0;
@@ -117,7 +141,6 @@ function ExperienceSection() {
       </div>
 
       <div className="timeline-alt" ref={timelineRef}>
-        <div className="timeline-alt-line-base" />
         <div className="timeline-progress-line" ref={progressLineRef} />
 
         <div className="timeline-progress-dot-wrap" ref={progressDotWrapRef}>
