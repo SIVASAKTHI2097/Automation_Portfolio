@@ -5,7 +5,8 @@ import profileImg from "../assets/_DSC8610_Original.jpg";
 const roles = [
   "SDET",
   "Quality Engineer",
-  "QA Specialist"
+  "QA Specialist",
+  "Automation Architect",
 ];
 
 function HeroSection() {
@@ -75,7 +76,6 @@ function HeroSection() {
           </p>
 
           <div className="social-links hero-anim hero-anim-6">
-            {/* GitHub */}
             <a
               href={portfolioConfig.social.github}
               target="_blank"
@@ -89,7 +89,6 @@ function HeroSection() {
               </svg>
             </a>
 
-            {/* LinkedIn */}
             <a
               href={portfolioConfig.social.linkedin}
               target="_blank"
@@ -103,7 +102,6 @@ function HeroSection() {
               </svg>
             </a>
 
-            {/* LeetCode */}
             <a
               href={portfolioConfig.social.leetcode}
               target="_blank"
@@ -135,7 +133,6 @@ function HeroSection() {
               </svg>
             </a>
 
-            {/* X / Twitter */}
             <a
               href={portfolioConfig.social.twitter}
               target="_blank"
