@@ -3,6 +3,21 @@
   padding-bottom: 130px;
 }
 
+.contact-section.is-contact-active .contact-left {
+  border-color: rgba(132, 233, 255, 0.16);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.02),
+    0 0 0 1px rgba(132, 233, 255, 0.04),
+    0 0 26px rgba(132, 233, 255, 0.06),
+    0 18px 42px rgba(0, 0, 0, 0.26);
+}
+
+.contact-section.is-contact-active .contact-link-card,
+.contact-section.is-contact-active .contact-social-btn,
+.contact-section.is-contact-active .linkedin-note-card {
+  border-color: rgba(132, 233, 255, 0.1);
+}
+
 .contact-panel {
   display: grid;
   grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
@@ -25,6 +40,7 @@
     border-color 0.35s ease,
     box-shadow 0.35s ease,
     background 0.35s ease;
+  isolation: isolate;
 }
 
 .contact-right {
@@ -44,14 +60,32 @@
   pointer-events: none;
 }
 
+.contact-left::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  box-shadow:
+    0 0 0 1px rgba(132, 233, 255, 0.06),
+    0 0 22px rgba(132, 233, 255, 0.08),
+    0 0 48px rgba(132, 233, 255, 0.05);
+}
+
 .contact-left:hover {
-  transform: translateY(-6px);
+  transform: translateY(-6px) scale(1.005);
   border-color: rgba(132, 233, 255, 0.18);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.02),
     0 0 0 1px rgba(132, 233, 255, 0.04),
     0 0 28px rgba(132, 233, 255, 0.06),
     0 24px 54px rgba(0, 0, 0, 0.28);
+}
+
+.contact-left:hover::after {
+  opacity: 1;
 }
 
 .contact-card-glow {
@@ -64,6 +98,39 @@
   background: radial-gradient(circle, rgba(132, 233, 255, 0.08), transparent 70%);
   filter: blur(10px);
   pointer-events: none;
+  z-index: 0;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.contact-card-shine {
+  position: absolute;
+  top: -140%;
+  left: -30%;
+  width: 40%;
+  height: 280%;
+  transform: rotate(18deg);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0.045),
+    rgba(255, 255, 255, 0)
+  );
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition:
+    opacity 0.25s ease,
+    transform 0.8s ease;
+}
+
+.contact-left:hover .contact-card-glow {
+  opacity: 0.85;
+  transform: scale(1.08);
+}
+
+.contact-left:hover .contact-card-shine {
+  opacity: 1;
+  transform: translateX(220%) rotate(18deg);
 }
 
 .contact-left-topline {
@@ -83,7 +150,7 @@
 
 .contact-left-header {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .contact-left-header h3 {
@@ -103,7 +170,7 @@
 
 .contact-form-preview {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   margin-top: 26px;
   display: grid;
   gap: 16px;
@@ -135,7 +202,8 @@
   transition:
     border-color 0.25s ease,
     box-shadow 0.25s ease,
-    background 0.25s ease;
+    background 0.25s ease,
+    transform 0.25s ease;
 }
 
 .contact-real-input::placeholder,
@@ -155,9 +223,16 @@
   font-family: inherit;
 }
 
+.contact-real-input:hover,
+.contact-real-textarea:hover {
+  border-color: rgba(132, 233, 255, 0.14);
+  background: rgba(132, 233, 255, 0.02);
+}
+
 .contact-real-input:focus,
 .contact-real-textarea:focus {
-  border-color: rgba(132, 233, 255, 0.22);
+  transform: translateY(-1px);
+  border-color: rgba(132, 233, 255, 0.24);
   background: rgba(132, 233, 255, 0.03);
   box-shadow:
     0 0 0 1px rgba(132, 233, 255, 0.06),
@@ -178,6 +253,35 @@
   box-shadow:
     0 0 0 1px rgba(255, 92, 122, 0.04),
     0 0 14px rgba(255, 92, 122, 0.04);
+  animation: contactFeedbackIn 0.35s ease;
+}
+
+.contact-form-success {
+  margin-top: -4px;
+  margin-bottom: 2px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  font-weight: 700;
+  color: #dffdf2;
+  background: rgba(46, 204, 113, 0.08);
+  border: 1px solid rgba(46, 204, 113, 0.18);
+  box-shadow:
+    0 0 0 1px rgba(46, 204, 113, 0.04),
+    0 0 14px rgba(46, 204, 113, 0.04);
+  animation: contactFeedbackIn 0.35s ease;
+}
+
+@keyframes contactFeedbackIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .contact-send-btn {
@@ -203,7 +307,8 @@
     transform 0.28s ease,
     border-color 0.28s ease,
     box-shadow 0.28s ease,
-    color 0.28s ease;
+    color 0.28s ease,
+    background 0.28s ease;
 }
 
 .contact-send-btn::before {
@@ -214,6 +319,27 @@
   z-index: -1;
   background: linear-gradient(180deg, rgba(111, 231, 255, 0.78), rgba(59, 201, 255, 0.95));
   transition: height 0.42s ease;
+}
+
+.contact-send-btn::after {
+  content: "";
+  position: absolute;
+  top: -140%;
+  left: -25%;
+  width: 36%;
+  height: 280%;
+  transform: rotate(18deg);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0.06),
+    rgba(255, 255, 255, 0)
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    opacity 0.25s ease,
+    transform 0.8s ease;
 }
 
 .contact-send-btn:hover {
@@ -230,15 +356,42 @@
   height: 100%;
 }
 
+.contact-send-btn:hover::after {
+  opacity: 1;
+  transform: translateX(240%) rotate(18deg);
+}
+
 .contact-send-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  transition: transform 0.28s ease;
+}
+
+.contact-send-btn:hover .contact-send-icon {
+  transform: translateX(2px) translateY(-1px);
 }
 
 .contact-send-icon svg {
   width: 15px;
   height: 15px;
+}
+
+.contact-send-btn:disabled {
+  opacity: 0.82;
+  cursor: not-allowed;
+}
+
+.contact-send-btn:disabled:hover {
+  transform: none;
+  color: #f5fbff;
+  border-color: rgba(132, 233, 255, 0.1);
+  box-shadow: none;
+}
+
+.contact-send-btn:disabled::before,
+.contact-send-btn:disabled::after {
+  display: none;
 }
 
 .contact-right-block {
@@ -303,11 +456,15 @@
   transition:
     transform 0.28s ease,
     box-shadow 0.28s ease,
-    border-color 0.28s ease;
+    border-color 0.28s ease,
+    color 0.28s ease,
+    background 0.28s ease;
 }
 
 .contact-link-card:hover .contact-link-icon {
   transform: translateY(-2px) scale(1.04);
+  color: #ffffff;
+  background: rgba(132, 233, 255, 0.08);
   border-color: rgba(132, 233, 255, 0.18);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.02),
@@ -364,11 +521,13 @@
     transform 0.28s ease,
     border-color 0.28s ease,
     background 0.28s ease,
-    box-shadow 0.28s ease;
+    box-shadow 0.28s ease,
+    color 0.28s ease;
 }
 
 .contact-social-btn:hover {
   transform: translateY(-4px);
+  color: #ffffff;
   border-color: rgba(132, 233, 255, 0.18);
   background: rgba(132, 233, 255, 0.04);
   box-shadow:
@@ -397,6 +556,14 @@
   color: rgba(233, 242, 255, 0.76);
   background: rgba(255, 255, 255, 0.015);
   border: 1px solid rgba(132, 233, 255, 0.06);
+  transition:
+    border-color 0.28s ease,
+    box-shadow 0.28s ease,
+    background 0.28s ease;
+}
+
+.contact-section.is-contact-active .linkedin-note-card {
+  background: rgba(255, 255, 255, 0.02);
 }
 
 .linkedin-note-dot {
@@ -510,25 +677,4 @@
   .linkedin-note-card {
     font-size: 0.84rem;
   }
-}
-
-.contact-form-success {
-  margin-top: -4px;
-  margin-bottom: 2px;
-  padding: 12px 14px;
-  border-radius: 14px;
-  font-size: 0.88rem;
-  line-height: 1.5;
-  font-weight: 700;
-  color: #dffdf2;
-  background: rgba(46, 204, 113, 0.08);
-  border: 1px solid rgba(46, 204, 113, 0.18);
-  box-shadow:
-    0 0 0 1px rgba(46, 204, 113, 0.04),
-    0 0 14px rgba(46, 204, 113, 0.04);
-}
-
-.contact-send-btn:disabled {
-  opacity: 0.8;
-  cursor: not-allowed;
 }
