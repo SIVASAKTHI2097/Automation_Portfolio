@@ -192,58 +192,32 @@ function SkillIcon({ skill }: { skill: Skill }) {
         </div>
       );
 
-    case "typescript":
-      return badge("TS");
-    case "javascript":
-      return badge("JS");
-    case "java":
-      return badge("JV");
-    case "csharp":
-      return badge("C#");
-    case "playwright":
-      return badge("PW");
-    case "selenium":
-      return badge("SE");
-    case "cypress":
-      return badge("CY");
-    case "restassured":
-      return badge("RA");
-    case "appium":
-      return badge("AP");
-    case "apitesting":
-      return badge("API");
-    case "bdd":
-      return badge("BDD");
-    case "cucumber":
-      return badge("CU");
-    case "gherkin":
-      return badge("GH");
-    case "specflow":
-      return badge("SF");
-    case "reqnroll":
-      return badge("RQ");
-    case "maven":
-      return badge("MV");
-    case "testng":
-      return badge("TG");
-    case "nunit":
-      return badge("NU");
-    case "powershell":
-      return badge("PS");
-    case "jmeter":
-      return badge("JM");
-    case "cicd":
-      return badge("CI");
-    case "yaml":
-      return badge("YM");
-    case "agile":
-      return badge("AG");
-    case "d365":
-      return badge("D365");
-    case "erp":
-      return badge("ERP");
-    case "zephyr":
-      return badge("ZP");
+    case "typescript": return badge("TS");
+    case "javascript": return badge("JS");
+    case "java": return badge("JV");
+    case "csharp": return badge("C#");
+    case "playwright": return badge("PW");
+    case "selenium": return badge("SE");
+    case "cypress": return badge("CY");
+    case "restassured": return badge("RA");
+    case "appium": return badge("AP");
+    case "apitesting": return badge("API");
+    case "bdd": return badge("BDD");
+    case "cucumber": return badge("CU");
+    case "gherkin": return badge("GH");
+    case "specflow": return badge("SF");
+    case "reqnroll": return badge("RQ");
+    case "maven": return badge("MV");
+    case "testng": return badge("TG");
+    case "nunit": return badge("NU");
+    case "powershell": return badge("PS");
+    case "jmeter": return badge("JM");
+    case "cicd": return badge("CI");
+    case "yaml": return badge("YM");
+    case "agile": return badge("AG");
+    case "d365": return badge("D365");
+    case "erp": return badge("ERP");
+    case "zephyr": return badge("ZP");
     default:
       return badge(skill.name.slice(0, 2).toUpperCase());
   }
@@ -255,10 +229,11 @@ function SkillsSection() {
 
   return (
     <section className="section skills-marquee-section" id="skills">
-      <div className="skills-stack-header">
-             <div className="projects-showcase-top-pill">
-        <span>Inventry</span>
-      </div>
+      <div className="skills-stack-header" data-reveal="up">
+        <div className="projects-showcase-top-pill">
+          <span>Inventory</span>
+        </div>
+
         <h2 className="skills-stack-title">
           <span className="skills-stack-title-white">The</span>{" "}
           <span className="skills-stack-title-red">Tech Stack</span>
@@ -266,7 +241,7 @@ function SkillsSection() {
       </div>
 
       <div className="skills-marquee-shell">
-        <div className="skills-marquee-row row-left">
+        <div className="skills-marquee-row row-left" data-reveal="left" data-reveal-delay="1">
           <div className="skills-marquee-track">
             {[...topRowSkills, ...topRowSkills].map((skill, index) => (
               <article
@@ -285,7 +260,7 @@ function SkillsSection() {
           </div>
         </div>
 
-        <div className="skills-marquee-row row-right">
+        <div className="skills-marquee-row row-right" data-reveal="right" data-reveal-delay="2">
           <div className="skills-marquee-track">
             {[...bottomRowSkills, ...bottomRowSkills].map((skill, index) => (
               <article
