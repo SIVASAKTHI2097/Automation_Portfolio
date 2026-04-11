@@ -60,7 +60,7 @@ function HeroSection() {
 
           <div className="hero-role-block hero-anim hero-anim-4">
             <p className="hero-role-label">Specializing as</p>
-            <p className="hero-role-line">object-position
+            <p className="hero-role-line">
               <span className="typing-text">{displayText}</span>
               <span className="typing-cursor">|</span>
             </p>
