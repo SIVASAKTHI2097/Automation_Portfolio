@@ -52,6 +52,7 @@
   max-width: 880px;
   margin: 0 auto 56px;
 }
+
 .projects-showcase-kicker {
   margin: 0 0 14px;
   font-size: 0.78rem;
@@ -74,10 +75,10 @@
 }
 
 .projects-title-red {
-  color: #6fe7ff;
+  color: #84e9ff;
   text-shadow:
-    0 0 20px rgba(111, 231, 255, 0.14),
-    0 0 40px rgba(111, 231, 255, 0.08);
+    0 0 20px rgba(132, 233, 255, 0.14),
+    0 0 40px rgba(132, 233, 255, 0.08);
 }
 
 .projects-showcase-subtitle {
@@ -109,6 +110,7 @@
     box-shadow 0.35s ease,
     background 0.35s ease;
 }
+
 .showcase-project-card::before {
   content: "";
   position: absolute;
