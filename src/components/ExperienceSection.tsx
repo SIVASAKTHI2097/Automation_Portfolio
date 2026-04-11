@@ -112,7 +112,7 @@ function ExperienceSection() {
 
   return (
     <section className="section experience-section" id="experience">
-      <div className="projects-showcase-top-pill">
+      <div className="projects-showcase-top-pill" data-reveal="up">
         <span>Experience</span>
       </div>
 
@@ -139,7 +139,11 @@ function ExperienceSection() {
               {/* LEFT COLUMN */}
               <div className="timeline-alt-side timeline-alt-left">
                 {isLeft && (
-                  <article className="timeline-alt-card timeline-card-left assemble-left">
+                  <article
+                    className="timeline-alt-card timeline-card-left"
+                    data-reveal="left"
+                    data-reveal-delay={`${Math.min(index + 1, 5)}`}
+                  >
                     <div
                       className="timeline-alt-float-icon timeline-float-overlap"
                       aria-hidden="true"
@@ -176,9 +180,11 @@ function ExperienceSection() {
               {/* CENTER COLUMN */}
               <div className="timeline-alt-center">
                 <div
-                  className={`timeline-alt-date-float desktop-only timeline-date-enter ${
+                  className={`timeline-alt-date-float desktop-only ${
                     isLeft ? "timeline-date-right" : "timeline-date-left"
                   }`}
+                  data-reveal="up"
+                  data-reveal-delay={`${Math.min(index + 1, 5)}`}
                 >
                   <span className="timeline-alt-date-icon" aria-hidden="true">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -197,7 +203,11 @@ function ExperienceSection() {
               {/* RIGHT COLUMN */}
               <div className="timeline-alt-side timeline-alt-right">
                 {!isLeft && (
-                  <article className="timeline-alt-card timeline-card-right assemble-right">
+                  <article
+                    className="timeline-alt-card timeline-card-right"
+                    data-reveal="right"
+                    data-reveal-delay={`${Math.min(index + 1, 5)}`}
+                  >
                     <div
                       className="timeline-alt-float-icon timeline-float-overlap"
                       aria-hidden="true"
@@ -233,7 +243,11 @@ function ExperienceSection() {
 
               {/* MOBILE DATE */}
               <div className="timeline-mobile-date-wrap">
-                <div className="timeline-alt-date-float mobile-only timeline-date-enter">
+                <div
+                  className="timeline-alt-date-float mobile-only"
+                  data-reveal="up"
+                  data-reveal-delay={`${Math.min(index + 1, 5)}`}
+                >
                   <span className="timeline-alt-date-icon" aria-hidden="true">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <rect x="3" y="5" width="18" height="16" rx="2" />
