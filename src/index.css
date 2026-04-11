@@ -21,9 +21,12 @@
 
   --cyan: #84e9ff;
   --cyan-strong: #5fdfff;
+  --cyan-soft: rgba(132, 233, 255, 0.18);
+  --blue-soft: rgba(96, 165, 250, 0.14);
 
-  --red: #ff3b3b;
-  --red-soft: #ff8b8b;
+  --success: #86efac;
+  --success-bg: rgba(34, 197, 94, 0.08);
+  --success-border: rgba(34, 197, 94, 0.18);
 }
 
 * {
@@ -46,7 +49,7 @@ body {
   min-height: 100vh;
   background:
     radial-gradient(circle at 10% 12%, rgba(132, 233, 255, 0.08), transparent 26%),
-    radial-gradient(circle at 88% 18%, rgba(255, 59, 59, 0.06), transparent 24%),
+    radial-gradient(circle at 88% 18%, rgba(96, 165, 250, 0.06), transparent 24%),
     radial-gradient(circle at 50% 100%, rgba(95, 223, 255, 0.05), transparent 28%),
     linear-gradient(180deg, #020b18 0%, #04162c 42%, #020b18 100%);
   color: var(--text-main);
@@ -118,12 +121,12 @@ button {
   background: rgba(132, 233, 255, 0.08);
 }
 
-.bg-orb-red {
+.bg-orb-blue {
   width: 340px;
   height: 340px;
   top: 58%;
   right: -140px;
-  background: rgba(255, 59, 59, 0.06);
+  background: rgba(96, 165, 250, 0.06);
   animation-duration: 18s;
   animation-delay: -4s;
 }
@@ -144,12 +147,12 @@ main {
   z-index: 1;
 }
 
-/* SHARED SECTION LAYOUT */
 .section {
   width: min(1240px, calc(100% - 48px));
   margin: 0 auto;
   padding: 120px 0;
   position: relative;
+  scroll-margin-top: 104px;
 }
 
 .section-heading {
@@ -186,7 +189,7 @@ main {
   display: block;
 }
 
-/* GLOBAL REVEAL SYSTEM */
+/* GLOBAL SCROLL REVEAL */
 [data-reveal] {
   opacity: 0;
   transform: translate3d(0, 28px, 0);
@@ -210,6 +213,10 @@ main {
 
 [data-reveal="right"] {
   transform: translate3d(34px, 24px, 0);
+}
+
+[data-reveal="up"] {
+  transform: translate3d(0, 34px, 0);
 }
 
 [data-reveal="zoom"] {
@@ -236,7 +243,6 @@ main {
   transition-delay: 0.4s;
 }
 
-/* SHARED HOVER MOTION */
 .hover-lift {
   transition:
     transform 0.32s ease,
@@ -249,7 +255,6 @@ main {
   transform: translateY(-8px);
 }
 
-/* SCROLLBAR */
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -285,6 +290,7 @@ main {
   .section {
     width: min(1240px, calc(100% - 28px));
     padding: 90px 0;
+    scroll-margin-top: 88px;
   }
 
   .section-heading {
@@ -308,7 +314,7 @@ main {
     left: -100px;
   }
 
-  .bg-orb-red {
+  .bg-orb-blue {
     width: 240px;
     height: 240px;
     right: -110px;
@@ -317,7 +323,8 @@ main {
   [data-reveal],
   [data-reveal="left"],
   [data-reveal="right"],
-  [data-reveal="zoom"] {
+  [data-reveal="zoom"],
+  [data-reveal="up"] {
     transform: translate3d(0, 18px, 0);
     filter: blur(6px);
   }
