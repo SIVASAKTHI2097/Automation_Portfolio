@@ -16,39 +16,41 @@ import ExperienceSection from "./components/ExperienceSection";
 import SkillsSection from "./components/SkillsSection";
 import ProjectsSection from "./components/ProjectsSection";
 import ContactSection from "./components/ContactSection";
+import InteractiveBackground from "./components/InteractiveBackground";
 
 function App() {
   const isSnappingRef = useRef(false);
   const snapCooldownRef = useRef<number | null>(null);
+  const progressBarRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const revealElements = Array.from(
       document.querySelectorAll<HTMLElement>("[data-reveal]")
     );
 
-    if (revealElements.length) {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            const target = entry.target as HTMLElement;
+    if (!revealElements.length) return;
 
-            if (entry.isIntersecting) {
-              target.classList.add("is-visible");
-            } else {
-              target.classList.remove("is-visible");
-            }
-          });
-        },
-        {
-          threshold: 0.18,
-          rootMargin: "0px 0px -6% 0px",
-        }
-      );
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const target = entry.target as HTMLElement;
 
-      revealElements.forEach((el) => observer.observe(el));
+          if (entry.isIntersecting) {
+            target.classList.add("is-visible");
+          } else {
+            target.classList.remove("is-visible");
+          }
+        });
+      },
+      {
+        threshold: 0.18,
+        rootMargin: "0px 0px -6% 0px",
+      }
+    );
 
-      return () => observer.disconnect();
-    }
+    revealElements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -117,11 +119,8 @@ function App() {
       const isTallSection = rect.height > viewportHeight * 0.95;
 
       if (isTallSection) {
-        const canScrollDownInside =
-          rect.bottom > viewportHeight + 8;
-
-        const canScrollUpInside =
-          rect.top < -8;
+        const canScrollDownInside = rect.bottom > viewportHeight + 8;
+        const canScrollUpInside = rect.top < -8;
 
         if (deltaY > 0 && canScrollDownInside) {
           return;
@@ -151,8 +150,7 @@ function App() {
       const key = e.key;
       const isDown =
         key === "ArrowDown" || key === "PageDown" || key === " ";
-      const isUp =
-        key === "ArrowUp" || key === "PageUp";
+      const isUp = key === "ArrowUp" || key === "PageUp";
 
       if (!isDown && !isUp) return;
 
@@ -166,11 +164,8 @@ function App() {
       const isTallSection = rect.height > viewportHeight * 0.95;
 
       if (isTallSection) {
-        const canScrollDownInside =
-          rect.bottom > viewportHeight + 8;
-
-        const canScrollUpInside =
-          rect.top < -8;
+        const canScrollDownInside = rect.bottom > viewportHeight + 8;
+        const canScrollUpInside = rect.top < -8;
 
         if (isDown && canScrollDownInside) return;
         if (isUp && canScrollUpInside) return;
@@ -200,8 +195,46 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    const progressBar = progressBarRef.current;
+    if (!progressBar) return;
+
+    let raf = 0;
+
+    const updateScrollProgress = () => {
+      const scrollTop = window.scrollY || window.pageYOffset;
+      const docHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+
+      const progress = docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0;
+      progressBar.style.transform = `scaleX(${progress})`;
+    };
+
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(updateScrollProgress);
+    };
+
+    updateScrollProgress();
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
   return (
     <div className="portfolio">
+      <div className="global-scroll-progress" aria-hidden="true">
+        <div className="global-scroll-progress-bar" ref={progressBarRef} />
+      </div>
+
+      <InteractiveBackground />
+
       <div className="bg-orb bg-orb-cyan" aria-hidden="true" />
       <div className="bg-orb bg-orb-blue" aria-hidden="true" />
 
