@@ -46,7 +46,7 @@ function HeroSection() {
   }, [displayText, isDeleting, currentRole]);
 
   return (
-    <section className="hero" id="hero">
+    <section className="hero hero-snap" id="hero">
       <div className="hero-left">
         <div className="hero-intro">
           <p className="hero-name-line hero-anim hero-anim-1">I&apos;m Sivasakthi</p>
