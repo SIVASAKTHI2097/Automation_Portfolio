@@ -228,54 +228,56 @@ function SkillsSection() {
   const bottomRowSkills = skills.slice(Math.ceil(skills.length / 2));
 
   return (
-    <section className="section skills-marquee-section" id="skills">
-      <div className="skills-stack-header" data-reveal="up">
-        <div className="projects-showcase-top-pill">
-          <span>Inventory</span>
-        </div>
-
-        <h2 className="skills-stack-title">
-          <span className="skills-stack-title-white">The</span>{" "}
-          <span className="skills-stack-title-red">Tech Stack</span>
-        </h2>
-      </div>
-
-      <div className="skills-marquee-shell">
-        <div className="skills-marquee-row row-left" data-reveal="left" data-reveal-delay="1">
-          <div className="skills-marquee-track">
-            {[...topRowSkills, ...topRowSkills].map((skill, index) => (
-              <article
-                key={`top-${skill.name}-${index}`}
-                className="tech-skill-card"
-                style={{ "--skill-color": skill.color } as CSSProperties}
-              >
-                <SkillIcon skill={skill} />
-
-                <div className="tech-skill-text">
-                  <h3>{skill.name}</h3>
-                  <p>Technology</p>
-                </div>
-              </article>
-            ))}
+    <section className="section section-focus skills-marquee-section" id="skills">
+      <div className="section-focus-inner">
+        <div className="skills-stack-header" data-reveal="up">
+          <div className="projects-showcase-top-pill">
+            <span>Inventory</span>
           </div>
+
+          <h2 className="skills-stack-title">
+            <span className="skills-stack-title-white">The</span>{" "}
+            <span className="skills-stack-title-red">Tech Stack</span>
+          </h2>
         </div>
 
-        <div className="skills-marquee-row row-right" data-reveal="right" data-reveal-delay="2">
-          <div className="skills-marquee-track">
-            {[...bottomRowSkills, ...bottomRowSkills].map((skill, index) => (
-              <article
-                key={`bottom-${skill.name}-${index}`}
-                className="tech-skill-card"
-                style={{ "--skill-color": skill.color } as CSSProperties}
-              >
-                <SkillIcon skill={skill} />
+        <div className="skills-marquee-shell">
+          <div className="skills-marquee-row row-left" data-reveal="left" data-reveal-delay="1">
+            <div className="skills-marquee-track">
+              {[...topRowSkills, ...topRowSkills].map((skill, index) => (
+                <article
+                  key={`top-${skill.name}-${index}`}
+                  className="tech-skill-card"
+                  style={{ "--skill-color": skill.color } as CSSProperties}
+                >
+                  <SkillIcon skill={skill} />
 
-                <div className="tech-skill-text">
-                  <h3>{skill.name}</h3>
-                  <p>Technology</p>
-                </div>
-              </article>
-            ))}
+                  <div className="tech-skill-text">
+                    <h3>{skill.name}</h3>
+                    <p>Technology</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <div className="skills-marquee-row row-right" data-reveal="right" data-reveal-delay="2">
+            <div className="skills-marquee-track">
+              {[...bottomRowSkills, ...bottomRowSkills].map((skill, index) => (
+                <article
+                  key={`bottom-${skill.name}-${index}`}
+                  className="tech-skill-card"
+                  style={{ "--skill-color": skill.color } as CSSProperties}
+                >
+                  <SkillIcon skill={skill} />
+
+                  <div className="tech-skill-text">
+                    <h3>{skill.name}</h3>
+                    <p>Technology</p>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
         </div>
       </div>
