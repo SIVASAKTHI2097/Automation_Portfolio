@@ -116,35 +116,35 @@
   transition: color 0.25s ease, transform 0.25s ease;
 }
 
-.nav-links a span {
-  position: relative;
-  z-index: 1;
-}
-
 .nav-links a:hover {
   color: #ffffff;
   transform: translateY(-1px);
 }
 
-.nav-links a.is-active {
-  color: #ffffff;
+.nav-link.is-active {
+  color: #f5fbff;
 }
 
 .nav-underline {
   position: absolute;
   left: 0;
-  bottom: 0;
+  bottom: -8px;
   height: 2px;
+  border-radius: 999px;
   width: 0;
   opacity: 0;
-  border-radius: 999px;
-  background: linear-gradient(90deg, #ff4b4b, #ff2d2d);
-  box-shadow: 0 0 14px rgba(255, 59, 59, 0.35);
-  transform: translateX(0);
+  background: linear-gradient(
+    90deg,
+    rgba(132, 233, 255, 0.95),
+    rgba(95, 223, 255, 0.92)
+  );
+  box-shadow:
+    0 0 12px rgba(132, 233, 255, 0.22),
+    0 0 24px rgba(132, 233, 255, 0.12);
   transition:
-    transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
-    width 0.32s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.22s ease;
+    transform 0.28s ease,
+    width 0.28s ease,
+    opacity 0.28s ease;
   pointer-events: none;
 }
 
