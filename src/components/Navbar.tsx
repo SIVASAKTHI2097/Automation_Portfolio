@@ -12,6 +12,7 @@ function Navbar() {
   const [activeSection, setActiveSection] = useState("");
   const [hoveredSection, setHoveredSection] = useState("");
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navLinksRef = useRef<HTMLDivElement | null>(null);
   const linkRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
@@ -73,7 +74,7 @@ function Navbar() {
 
   useEffect(() => {
     const navLinks = navLinksRef.current;
-    if (!navLinks) return;
+    if (!navLinks || window.innerWidth <= 900) return;
 
     const targetKey = hoveredSection || activeSection;
     const underline = navLinks.querySelector(
@@ -105,8 +106,12 @@ function Navbar() {
 
   useEffect(() => {
     const handleResize = () => {
+      if (window.innerWidth > 900) {
+        setIsMobileMenuOpen(false);
+      }
+
       const navLinks = navLinksRef.current;
-      if (!navLinks) return;
+      if (!navLinks || window.innerWidth <= 900) return;
 
       const targetKey = hoveredSection || activeSection;
       const underline = navLinks.querySelector(
@@ -129,6 +134,18 @@ function Navbar() {
     return () => window.removeEventListener("resize", handleResize);
   }, [activeSection, hoveredSection]);
 
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobileMenuOpen]);
+
   const handleNavClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     targetId: string
@@ -138,7 +155,7 @@ function Navbar() {
     const target = document.getElementById(targetId);
     if (!target) return;
 
-    const navbarOffset = window.innerWidth <= 900 ? 88 : 104;
+    const navbarOffset = window.innerWidth <= 900 ? 82 : 104;
     const targetTop =
       target.getBoundingClientRect().top + window.scrollY - navbarOffset;
 
@@ -148,6 +165,7 @@ function Navbar() {
     });
 
     setActiveSection(targetId);
+    setIsMobileMenuOpen(false);
   };
 
   const handleBrandClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -159,6 +177,7 @@ function Navbar() {
     });
 
     setActiveSection("");
+    setIsMobileMenuOpen(false);
   };
 
   return (
@@ -173,7 +192,8 @@ function Navbar() {
           <span className="brand-mark">SS</span>
         </a>
 
-        <div className="nav-links" ref={navLinksRef}>
+        {/* Desktop Nav */}
+        <div className="nav-links desktop-nav" ref={navLinksRef}>
           {navItems.map((item) => (
             <a
               key={item.id}
@@ -194,7 +214,46 @@ function Navbar() {
 
           <span className="nav-underline" aria-hidden="true" />
         </div>
+
+        {/* Mobile Hamburger */}
+{/* Mobile Hamburger / Close */}
+<button
+  className={`mobile-menu-toggle ${isMobileMenuOpen ? "is-open" : ""}`}
+  type="button"
+  aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+  aria-expanded={isMobileMenuOpen}
+  onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+>
+  <span />
+  <span />
+  <span />
+</button>
       </nav>
+
+      {/* Mobile Menu Overlay */}
+      <div className={`mobile-nav-overlay ${isMobileMenuOpen ? "is-open" : ""}`}>
+        <div className="mobile-nav-backdrop" onClick={() => setIsMobileMenuOpen(false)} />
+
+        <div className="mobile-nav-panel">
+          <div className="mobile-nav-header" />
+
+          <div className="mobile-nav-links">
+            {navItems.map((item, index) => (
+              <a
+                key={item.id}
+                href={item.href}
+                className={`mobile-nav-link ${
+                  activeSection === item.id ? "is-active" : ""
+                }`}
+                style={{ transitionDelay: `${index * 0.05}s` }}
+                onClick={(e) => handleNavClick(e, item.id)}
+              >
+                {item.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
     </header>
   );
 }
