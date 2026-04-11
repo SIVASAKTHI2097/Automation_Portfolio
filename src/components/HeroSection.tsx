@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { portfolioConfig } from "../data/portfolioConfig";
-import profileImg from "../assets/_DSC8610_Original.jpg";
+import profileImg from "../assets/heroSection.png";
+
 
 const roles = [
   "SDET",
@@ -59,7 +60,7 @@ function HeroSection() {
 
           <div className="hero-role-block hero-anim hero-anim-4">
             <p className="hero-role-label">Specializing as</p>
-            <p className="hero-role-line">
+            <p className="hero-role-line">object-position
               <span className="typing-text">{displayText}</span>
               <span className="typing-cursor">|</span>
             </p>
@@ -69,13 +70,13 @@ function HeroSection() {
             Based in Bangalore, India
           </p>
 
-          <p className="hero-description hero-anim hero-anim-5">
+          <p className="hero-description hero-anim hero-anim-6">
             I build reliable, scalable automation solutions that improve software quality and reduce release risk.
             My focus is on creating efficient testing workflows, strengthening release confidence,
             and helping teams deliver better software with consistency.
           </p>
 
-          <div className="social-links hero-anim hero-anim-6">
+          <div className="social-links hero-anim hero-anim-7">
             <a
               href={portfolioConfig.social.github}
               target="_blank"
@@ -147,7 +148,7 @@ function HeroSection() {
             </a>
           </div>
 
-          <div className="hero-actions hero-anim hero-anim-7">
+          <div className="hero-actions hero-anim hero-anim-8">
             <a className="btn btn-primary liquid-btn connect-btn" href="#contact">
               <span className="btn-liquid" />
               <span className="btn-text">LET&apos;S CONNECT</span>
@@ -183,7 +184,20 @@ function HeroSection() {
         <div className="hero-image-wrap hero-image-entry">
           <div className="hero-image-glow" />
           <div className="hero-image-glow hero-image-glow-secondary" />
+          <div className="hero-image-orbit hero-image-orbit-1" />
+          <div className="hero-image-orbit hero-image-orbit-2" />
+
+          <div className="hero-image-particles">
+            <span className="hero-image-particle hero-image-particle-1" />
+            <span className="hero-image-particle hero-image-particle-2" />
+            <span className="hero-image-particle hero-image-particle-3" />
+            <span className="hero-image-particle hero-image-particle-4" />
+            <span className="hero-image-particle hero-image-particle-5" />
+            <span className="hero-image-particle hero-image-particle-6" />
+          </div>
+
           <div className="hero-image-ring">
+            <div className="hero-image-shine" />
             <div className="hero-image-inner">
               <img
                 src={profileImg}
