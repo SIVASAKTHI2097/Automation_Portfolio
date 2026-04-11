@@ -50,7 +50,7 @@ function App() {
   return (
     <div className="portfolio">
       <div className="bg-orb bg-orb-cyan" aria-hidden="true" />
-      <div className="bg-orb bg-orb-red" aria-hidden="true" />
+      <div className="bg-orb bg-orb-blue" aria-hidden="true" />
 
       <Navbar />
 
