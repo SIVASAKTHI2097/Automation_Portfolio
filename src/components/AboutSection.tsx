@@ -3,33 +3,35 @@ import profileImg from "../assets/_DSC8610_Original.jpg";
 function AboutSection() {
   return (
     <section className="section about-section" id="about">
-      <div className="projects-showcase-top-pill">
+      <div className="projects-showcase-top-pill" data-reveal="up">
         <span>About Me</span>
       </div>
 
       <div className="about-ref-layout">
-        {/* LEFT CONTENT CARD */}
-        <div className="about-left-panel assemble-left">
+        <div
+          className="about-left-panel assemble-left"
+          data-reveal="left"
+          data-reveal-delay="1"
+        >
           <div className="about-panel-frame">
             <div className="about-panel-line" />
 
             <div className="about-panel-content">
               <p>
-                I&apos;m a Senior QA Automation Engineer with nearly 7 years of experience in manual and automation testing across web, API, mobile, and desktop applications. 
-                I specialize in building scalable automation frameworks, improving test efficiency, 
-                and supporting reliable software delivery through strong quality engineering practices..
+                I&apos;m a Senior QA Automation Engineer with nearly 7 years of experience in manual and automation testing across web, API, mobile, and desktop applications.
+                I specialize in building scalable automation frameworks, improving test efficiency,
+                and supporting reliable software delivery through strong quality engineering practices.
               </p>
 
               <p>
-                Throughout my career, I’ve built automation frameworks from scratch, improved CI/CD execution, 
-                and developed internal tools that simplified test execution and release workflows. 
-                I’ve worked closely with cross-functional teams in Agile environments to strengthen product quality, 
+                Throughout my career, I&apos;ve built automation frameworks from scratch, improved CI/CD execution,
+                and developed internal tools that simplified test execution and release workflows.
+                I&apos;ve worked closely with cross-functional teams in Agile environments to strengthen product quality,
                 reduce regression effort, and ensure stable releases.
               </p>
 
               <p>
-                I’m passionate about creating practical, 
-                maintainable automation solutions that not only improve software quality 
+                I&apos;m passionate about creating practical, maintainable automation solutions that not only improve software quality
                 but also help teams work smarter and deliver with confidence.
               </p>
             </div>
@@ -53,8 +55,11 @@ function AboutSection() {
           </div>
         </div>
 
-        {/* RIGHT PHOTO CARD */}
-        <div className="about-photo-wrap assemble-right">
+        <div
+          className="about-photo-wrap assemble-right"
+          data-reveal="right"
+          data-reveal-delay="2"
+        >
           <div className="about-photo-card">
             <div className="about-photo-orb about-photo-orb-1" />
             <div className="about-photo-orb about-photo-orb-2" />
